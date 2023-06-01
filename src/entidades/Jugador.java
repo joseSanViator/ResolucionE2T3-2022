@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Jugador implements Serializable{
@@ -13,7 +15,17 @@ public class Jugador implements Serializable{
 	private int edad;
 	private String posicion;
 	
+	@ManyToOne
+	private Equipo equipo;
 	
+	public Equipo getEquipo() {
+		return equipo;
+	}
+
+	public void setEquipo(Equipo equipo) {
+		this.equipo = equipo;
+	}
+
 	public Jugador() {
 
 	}
@@ -65,6 +77,12 @@ public class Jugador implements Serializable{
 	public void setPosicion(String posicion) {
 		this.posicion = posicion;
 	}
-	
+	public String toString() {
+		String cad="Nombre: "+this.nombre+
+				 "\nEdad: "+this.edad+
+				 "\nPosicion: "+this.posicion;
+				cad+="\n---------------";
+		return cad;		
+	}
 }
 

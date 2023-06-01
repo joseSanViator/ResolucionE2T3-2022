@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -19,7 +20,7 @@ public class Equipo implements Serializable {
 	private String nombre;
 	private String division;
 	
-	@OneToMany
+	@OneToMany(mappedBy="equipo",cascade=CascadeType.PERSIST)
 	private List<Jugador> jugadores;
 	
 	
@@ -34,6 +35,11 @@ public class Equipo implements Serializable {
 	public Equipo() {
 	}
 	
+	public Equipo(String nombre, String division) {
+		this.nombre = nombre;
+		this.division = division;
+		this.jugadores=new ArrayList<Jugador>();
+	}
 	public Equipo(int id, String nombre, String division) {
 		this.id = id;
 		this.nombre = nombre;
@@ -66,5 +72,11 @@ public class Equipo implements Serializable {
 	}
 	public void setDivision(String division) {
 		this.division = division;
+	}
+	public String toString() {
+		String cad="Nombre Equipo:"+this.nombre+
+				"\n División:"+this.division+"\n";
+		cad+="--------------------";		
+		return cad;
 	}
 }
